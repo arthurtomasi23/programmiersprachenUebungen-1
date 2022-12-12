@@ -1,21 +1,61 @@
 body {
     background-color: #3042DF;
     text-align: center;
+    font-family: 'Bungee Spice', cursive;
+    font-family: 'Noto Sans JP', sans-serif;
 }
 /*styling the game-Board*/
 #game-Board {
+    position: relative;
     width: 600px;
     height: 600px;
     background-color: white;
     border: 2px solid black;
-    padding: 25px;
+    border-radius: 10px;
     margin: 0 auto; /*centering the game-Board*/
     display: flex;
     flex-wrap: wrap;
 }
+#tile1 {
+    order: 1;
+}
+
+#tile2 {
+    order: 2;
+}
+
+#tile3 {
+    order: 3;
+}
+
+#tile4 {
+    order: 4;
+}
+
+#tile5 {
+    order: 5;
+}
+
+#tile6 {
+    order: 6;
+}
+
+#tile7 {
+    order: 7;
+}
+
+#tile8 {
+    order: 8;
+}
+#tile9 {
+    order: 9;
+}
+
 /*styling the tiles inside the game-board*/
-#game-Board img {
-    width: 197px;
-    height: 197px;
-    border: 1.5px solid #3042DF;
+.tile {
+    position: absolute;
+    width: 194px;
+    height: 194px;
+    border: 3px solid #3042DF;
+    border-radius: 10px;
 }
