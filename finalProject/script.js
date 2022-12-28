@@ -27,9 +27,9 @@ window.onload = function() {
                 tile.classList.add("tile")
                 tile.addEventListener("click", function() {
                     //shows me which tile is clicked
-                    //console.log(tile.column + ' ' + tile.row);
+                    console.log(tile.column + ' ' + tile.row);
                     //shows me where the blank tile is
-                    //console.log(blankTile.column + ' ' + blankTile.row);
+                    console.log(blankTile.column + ' ' + blankTile.row);
                     //turns.classList.add("turns")
                     //turns.addEventListener ("click", function() {
                        // counter++
