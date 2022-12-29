@@ -5,8 +5,9 @@ let currentTile; //the clicked tile
 let blankTile; //the blank tile
 let turns = 0;
 
-//let imgOrder = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
-let imgOrder = ["2", "6", "3", "9", "5", "8", "4", "1", "7"]
+let imgOrder = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+
+//let imgOrder = ["2", "6", "3", "7", "5", "8", "4", "1", "9"]
 
 window.onload = function() {
     for (let r=0; r < rows; r++) {
@@ -78,5 +79,8 @@ function dragEnd() {
 
     currentTile.src = blankImg;
     blankTile.src = currentImg;
+    
+    turns +=1;
+    document.getElementById("turns").innerText = turns;
     }
 }
