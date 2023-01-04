@@ -6,15 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arthur Tomasi Slide Puzzle</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="script2.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Noto+Sans+JP:wght@300&display=swap" rel="stylesheet">
 </head>
     <body>
         <h1>Final Project - Programming Languages Exercices</h1>
+        <select id="gridSize">
+            <option value="2">2x2</option>
+            <option value="3">3x3</option>
+            <option value="4">4x4</option>
+            <option value="5">5x5</option>
+            <option value="6">6x6</option>
+          </select>
+          
         <button id="shuffle">Shuffle</button>
-        <button id="gridSize">Grid-Size</button>
         <div id="gameBoard">
         </div>
-        <h4>Turns: <span id ="turns">0</span></h4>
+        <div id="turnsAndTimer">
+            <div>
+            <h4>Turns: <span id ="turns">0</span></h4>
+            </div>
+            <div>
+            <h4>Time: <span id ="timer">0</span></h4>
+            </div>
+        </div>
     </body>
+
+    <script src="script2.js"></script>
 </html>

@@ -5,18 +5,39 @@ let currentTile; //the clicked tile
 let blankTile; //the blank tile
 let turns = 0;
 
-let imgOrder = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+let shuffleButton = document.getElementById("shuffle");
 
-//let imgOrder = ["2", "6", "3", "7", "5", "8", "4", "1", "9"]
+let imgOrder = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+
+//let imgOrder = ["3", "6", "2", "7", "5", "8", "4", "1", "9"]
 
 window.onload = function() {
+    drawGameBoard();
+
+    shuffleButton.addEventListener('click', shuffle);
+}
+
+function shuffle() {
+    //https://dev.to/codebubb/how-to-shuffle-an-array-in-javascript-2ikj#:~:text=The%20first%20and%20simplest%20way
+    imgOrder.sort(() => 0.5 - Math.random());
+
+    deleteGameBoard();
+    drawGameBoard();
+}
+
+function deleteGameBoard() {
+    document.getElementById("gameBoard").innerHTML = "";
+}
+
+function drawGameBoard() {
+    let index = 0;
     for (let r=0; r < rows; r++) {
         for (let c=0; c < columns; c++) {
             //that creates image id's for all the tiles(imagesnippets) 
             //so i can later use them to find out if to tiles are next to each other
             let tile = document.createElement("img");
-            tile.id = r.toString() + "-" + c.toString();
-            tile.src = imgOrder.shift() + ".jpg";
+            tile.id = r.toString () +  "-" + c.toString();
+            tile.src = "assets/" + imgOrder[index++] + ".jpg";
 
             tile.addEventListener("dragstart", dragStart);
             tile.addEventListener("dragover", dragOver);
@@ -81,6 +102,25 @@ function dragEnd() {
     blankTile.src = currentImg;
     
     turns +=1;
+
+    if(turns == 1) {
+        startTimer();
+    }
+
     document.getElementById("turns").innerText = turns;
     }
+}
+
+let timerInterval;
+
+function startTimer() {
+  let time = 0;
+    timerInterval = setInterval(function () {
+    time++;
+    document.getElementById("timer").innerText = time;
+    }, 1000);
+}
+
+function stopTimer() {
+  clearInterval(timerInterval);
 }
