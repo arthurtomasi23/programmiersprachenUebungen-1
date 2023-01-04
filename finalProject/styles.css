@@ -1,6 +1,7 @@
 h4 {
-color: black;
+color: white;
 font-size: 20px;
+font-weight: bold;
 }
 
 body {
@@ -17,6 +18,7 @@ body {
     height: 600px;
     background-color: white;
     border-radius: 8px;
+    box-sizing: border-box;
     margin: 0 auto; /*centering the game-Board*/
     display: flex;
     flex-wrap: wrap;
@@ -24,9 +26,9 @@ body {
 
 /*styling the tiles inside the game-board*/
 #gameBoard img {
-    width: 194px;
-    height: 194px;
-    border: 3px solid white;
+    width: 196px;
+    height: 196px;
+    border: 2px solid white;
     border-radius: 8px;
     cursor: move;
 }
@@ -102,5 +104,5 @@ body {
     flex-direction: row;
     align-items: center;
     justify-content:center;
-    gap: 20px;
+    gap: 40px;
 }
