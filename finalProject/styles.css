@@ -1,16 +1,16 @@
 h4 {
-color: white;
+color: black;
 font-size: 20px;
 font-weight: bold;
 }
 
 body {
-   background-image: url("assets/SlidePuzzlebackground.jpg");
-   background-size: cover;
+    background-image: url("assets/milad-fakurian-HE1_K4_-QT8-unsplash.jpg");
+    background-size: cover;
     text-align: center;
     font-family: 'Bungee Spice', cursive;
     font-family: 'Noto Sans JP', sans-serif;
-    color: white;
+    color: black;
 }
 /*styling the game-Board*/
 #gameBoard {
@@ -105,4 +105,8 @@ body {
     align-items: center;
     justify-content:center;
     gap: 40px;
+}
+
+#test {
+    display: none;
 }
