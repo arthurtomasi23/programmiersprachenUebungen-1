@@ -111,10 +111,10 @@ body {
 #winningScreen {
     display: none;
 }
-
 #winningSreen::after{
     display: flexbox;
+    width: 100px;
+    height: 100px;
     background-color: white;
-    opacity: 10px;
     font-family: 'Noto Sans JP', sans-serif;
 }

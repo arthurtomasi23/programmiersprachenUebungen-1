@@ -89,7 +89,7 @@ function drawGameBoard() {
             //tile.src = slice.src;
             //finds out where the last puzzle piece is and replaces it with the blank tile
             if(slices[index].name == columns * rows + ".jpg") {
-                tile.src = "assets/9.jpg"
+                tile.src = "assets/blankTile.jpg"
             }
             //console.log(slices[index].name);
 
@@ -132,7 +132,7 @@ function dragDrop() {
 }
 
 function dragEnd() {
-    if(!blankTile.src.includes("9.jpg")) {
+    if(!blankTile.src.includes("blankTile.jpg")) {
     }
     //finds the coordinates of the clicked tile
     let currentCoordinates = currentTile.id.split("-"); //split() seperates the coordinates by the "-" -->now its an array of two 0s 
