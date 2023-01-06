@@ -1,11 +1,11 @@
 let rows = 3;
 let columns = 3;
-//let gridSize;
 let currentTile; //the clicked tile
 let blankTile; //the blank tile
 let turns = 0; //the turns
 
 let shuffleButton = document.getElementById("shuffle");
+let gridSizeButton = document.getElementById("gridSize")
 
 const slices = [];
 const uploadedImage = document.getElementById('test');
@@ -14,14 +14,27 @@ window.onload = function() {
     sliceImage(uploadedImage);
     drawGameBoard();
 
+    //grid Size Button
+    gridSizeButton.addEventListener('change', function() {
+        let buttonValue = this.value;
+        rows = buttonValue;
+        columns = buttonValue;
+        deleteGameBoard();
+        sliceImage(uploadedImage);
+        drawGameBoard();
+    });
+
+    //shuffle Button
     shuffleButton.addEventListener('click', shuffle);
 }
+
 //shuffles the array of numbers
 function shuffle() {
     //https://dev.to/codebubb/how-to-shuffle-an-array-in-javascript-2ikj#:~:text=The%20first%20and%20simplest%20way
     slices.sort(() => 0.5 - Math.random());
     deleteGameBoard();
     drawGameBoard();
+    console.log(slices);
 }
 
 function deleteGameBoard() {
@@ -33,16 +46,18 @@ function drawGameBoard() {
     
     for (let r=0; r < rows; r++) {
         for (let c=0; c < columns; c++) {
-            //that creates image id's for all the tiles(imagesnippets) 
-            //so i can later use them to find out if to tiles are next to each other
-
+            //creates img ids so i can later use them to find out if to tiles are next to each other
             let tile = document.createElement("img");
+            tile.width = (600/rows)-4;
+            tile.height = (600/columns)-4;
             tile.id = r.toString () +  "-" + c.toString(); //getting the id of the slices (0-0)
-            tile.src = slices[index].data; //(could also be index++, then i wouldn't need )
-
+            tile.src = slices[index].data; //(could also be index++, then i wouldn't need)
+            //tile.src = slice.src;
+            //finds out where the last puzzle piece is and replaces it with the blank tile
             if(slices[index].name == columns * rows + ".jpg") {
                 tile.src = "assets/9.jpg"
             }
+            //console.log(slices[index].name);
 
             //all events for the drag and drop action
             tile.addEventListener("dragstart", dragStart); //beginn to drag a tile
@@ -110,10 +125,8 @@ function dragEnd() {
     blankTile.src = currentImg;
     
     turns +=1;
-
-    if(turns == 1) {
-        startTimer();
-    }
+    
+    console.log(slices);
 
     document.getElementById("turns").innerText = turns; //counting the turns
     }
@@ -138,10 +151,14 @@ function startTimer() {
 }
 //not used now
 function stopTimer() {
+    if (correctOrder)
   clearInterval(timerInterval);
 }
 
 function sliceImage(image) {
+    // reset values of array
+    slices.length = 0;
+
     let count = 1;
     sliceSizeHeight = image.height / rows; //setting the number of slices
     sliceSizeWidth = image.width / columns;
@@ -161,6 +178,7 @@ function sliceImage(image) {
           data: canvas.toDataURL(),
         };
         
+       
         slices.push(slice); //pushing the slices in the slice array
         count++;
       }

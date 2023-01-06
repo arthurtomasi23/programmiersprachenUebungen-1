@@ -8,7 +8,6 @@ body {
     background-image: url("assets/milad-fakurian-HE1_K4_-QT8-unsplash.jpg");
     background-size: cover;
     text-align: center;
-    font-family: 'Bungee Spice', cursive;
     font-family: 'Noto Sans JP', sans-serif;
     color: black;
 }
@@ -26,10 +25,8 @@ body {
 
 /*styling the tiles inside the game-board*/
 #gameBoard img {
-    width: 196px;
-    height: 196px;
     border: 2px solid white;
-    border-radius: 8px;
+    border-radius: 4px;
     cursor: move;
 }
 
@@ -109,4 +106,15 @@ body {
 
 #test {
     display: none;
+}
+
+#winningScreen {
+    display: none;
+}
+
+#winningSreen::after{
+    display: flexbox;
+    background-color: white;
+    opacity: 10px;
+    font-family: 'Noto Sans JP', sans-serif;
 }
