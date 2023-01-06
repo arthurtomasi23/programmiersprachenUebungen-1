@@ -3,16 +3,24 @@ let columns = 3;
 let currentTile; //the clicked tile
 let blankTile; //the blank tile
 let turns = 0; //the turns
+let shuffled = false;
 
-let shuffleButton = document.getElementById("shuffle");
+let initialOrder = []; // Array to store the initial order of the images
+let currentOrder = []; // Array to store the current order of the images
+
+
 let gridSizeButton = document.getElementById("gridSize")
 
 const slices = [];
 const uploadedImage = document.getElementById('test');
 
+let shuffleButton = document.getElementById("shuffle");
+
+
 window.onload = function() {
     sliceImage(uploadedImage);
     drawGameBoard();
+    saveInitialOrder();
 
     //grid Size Button
     gridSizeButton.addEventListener('change', function() {
@@ -26,6 +34,31 @@ window.onload = function() {
 
     //shuffle Button
     shuffleButton.addEventListener('click', shuffle);
+    //shuffle Button activates the shuffled into true
+    shuffleButton.addEventListener('click', function() {
+        shuffled = true;
+    });
+}
+
+function saveInitialOrder() {
+    let images = document.querySelectorAll("#gameBoard img");
+    for (let i = 0;i < images.length; i++) {
+        initialOrder.push(images[i].src);
+    }
+}
+//compares the order of the pieces before they have been shuffled with the order of the pieces after very move
+function compareToInitialOrder() {
+    currentOrder= [];
+    let images = document.querySelectorAll("#gameBoard img");
+    for (let i = 0;i < images.length; i++) {
+        currentOrder.push(images[i].src);
+    }
+
+    if (initialOrder.join() === currentOrder.join()) {
+        console.log("Everything is in the right place");
+    } else {
+        console.log("still not all pieces in the right place")
+    }
 }
 
 //shuffles the array of numbers
@@ -34,13 +67,14 @@ function shuffle() {
     slices.sort(() => 0.5 - Math.random());
     deleteGameBoard();
     drawGameBoard();
-    console.log(slices);
 }
 
+//deletes the gameBoard so the new shuffled gameBoard can appear correctly
 function deleteGameBoard() {
     document.getElementById("gameBoard").innerHTML = "";
 }
 
+//drawing the gameboard an setting the heights and widths for the tiles
 function drawGameBoard() {
     let index = 0;
     
@@ -74,6 +108,7 @@ function drawGameBoard() {
     }
 }
 
+//all the steps while the dag and drop action 
 function dragStart() {
     currentTile = this; //while Tile is being dragged
 }
@@ -84,10 +119,12 @@ function dragOver(e) {
 
 function dragEnter(e) {
     e.preventDefault(); //while enterig the tile you want to swap with
+    
 }
 
 function dragLeave() {
-                        //taking a tile and leave the original position
+    //taking a tile and leave the original position
+    
 }
 
 function dragDrop() {
@@ -96,7 +133,6 @@ function dragDrop() {
 
 function dragEnd() {
     if(!blankTile.src.includes("9.jpg")) {
-        return;
     }
     //finds the coordinates of the clicked tile
     let currentCoordinates = currentTile.id.split("-"); //split() seperates the coordinates by the "-" -->now its an array of two 0s 
@@ -123,10 +159,16 @@ function dragEnd() {
 
     currentTile.src = blankImg;
     blankTile.src = currentImg;
+    compareToInitialOrder();
+    //only starts the game when the gameboard was shuffled
+    if (shuffled) {
+        turns +=1;
+    }
     
-    turns +=1;
-    
-    console.log(slices);
+    //starts the timer when the first turn was made
+    if (turns === 1) {
+        startTimer();
+    }
 
     document.getElementById("turns").innerText = turns; //counting the turns
     }
@@ -149,11 +191,11 @@ function startTimer() {
         document.getElementById("timer").innerText = minutes + ":" + seconds;
     }, 1000);
 }
+
 //not used now
-function stopTimer() {
-    if (correctOrder)
-  clearInterval(timerInterval);
-}
+// function stopTimer() {
+//   clearInterval(timerInterval);
+// }
 
 function sliceImage(image) {
     // reset values of array
@@ -177,10 +219,8 @@ function sliceImage(image) {
           name: count + '.jpg', //the new images are stored in the variable "name" (e.g. 1.jpg)
           data: canvas.toDataURL(),
         };
-        
-       
         slices.push(slice); //pushing the slices in the slice array
         count++;
-      }
+        }
     }
-  }
+}
