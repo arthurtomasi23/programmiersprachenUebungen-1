@@ -133,6 +133,7 @@ function dragDrop() {
 
 function dragEnd() {
     if(!blankTile.src.includes("blankTile.jpg")) {
+        return;
     }
     //finds the coordinates of the clicked tile
     let currentCoordinates = currentTile.id.split("-"); //split() seperates the coordinates by the "-" -->now its an array of two 0s 
