@@ -112,14 +112,23 @@ body {
     display: none;
 }
 
-body .winningScreenEnabled{
-    margin: 0 auto;
+body .winningScreenEnabled {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display:flex !important;
     flex-wrap: wrap;
-    display:block !important;
-    width: 600px;
-    height: 600px;
-    border-radius: 8px;
-    background-color: white;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.59);
     font-family: 'Noto Sans JP', sans-serif;
-    text-align: center;
+    justify-content: center;
+    align-content: center;
+}
+
+#winningScreenItem {
+width: auto;
+height: auto;
+background-color: white;
+padding: 20px 50px;
 }
