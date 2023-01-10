@@ -38,6 +38,7 @@ window.onload = function() {
     //shuffle Button activates the shuffled into true
     shuffleButton.addEventListener('click', function() {
         shuffled = true;
+        resetGameBoard();
     });
 }
 
@@ -102,7 +103,7 @@ function drawGameBoard() {
             tile.addEventListener("dragleave", dragLeave); //leaving the space of the tile you want to swap with
             tile.addEventListener("drop", dragDrop); //letting go of the mouse while being over the tile you want to swap with
             tile.addEventListener("dragend", dragEnd); //clicked tile swaps with the blank tile
-            
+
             document.getElementById("gameBoard").append(tile);
 
             index += 1;
@@ -163,6 +164,9 @@ function dragEnd() {
     currentTile.src = blankImg;
     blankTile.src = currentImg;
     compareToInitialOrder();
+
+    
+
     //only starts the game when the gameboard was shuffled
     if (shuffled) {
         turns +=1;
@@ -176,6 +180,15 @@ function dragEnd() {
     document.getElementById("turns").innerText = turns; //counting the turns
     }
 }
+//function that sets the timer and the turns to 0 and resets the timerInterval
+function resetGameBoard () {
+    turns = 0;
+    time = 0;
+    stopTimer();
+    document.getElementById("turns").innerText = turns;
+    document.getElementById("timer").innerText = time;
+}
+
 //timer function that starts with the first turn
 let timerInterval;
 function startTimer() {
@@ -195,10 +208,10 @@ function startTimer() {
     }, 1000);
 }
 
-//not used now
-// function stopTimer() {
-//   clearInterval(timerInterval);
-// }
+//used to reset the timerInterval
+function stopTimer() {
+  clearInterval(timerInterval);
+}
 
 function sliceImage(image) {
     // reset values of array
