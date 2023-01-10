@@ -111,10 +111,15 @@ body {
 #winningScreen {
     display: none;
 }
-#winningSreen::after{
-    display: flexbox;
-    width: 100px;
-    height: 100px;
+
+body .winningScreenEnabled{
+    margin: 0 auto;
+    flex-wrap: wrap;
+    display:block !important;
+    width: 600px;
+    height: 600px;
+    border-radius: 8px;
     background-color: white;
     font-family: 'Noto Sans JP', sans-serif;
+    text-align: center;
 }

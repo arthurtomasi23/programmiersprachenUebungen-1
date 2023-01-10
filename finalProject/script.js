@@ -16,6 +16,7 @@ const uploadedImage = document.getElementById('test');
 
 let shuffleButton = document.getElementById("shuffle");
 
+let winningScreen = document.getElementById("winningScreen");
 
 window.onload = function() {
     sliceImage(uploadedImage);
@@ -56,6 +57,7 @@ function compareToInitialOrder() {
 
     if (initialOrder.join() === currentOrder.join()) {
         console.log("Everything is in the right place");
+        winningScreen.classList.add("winningScreenEnabled");
     } else {
         console.log("still not all pieces in the right place")
     }
