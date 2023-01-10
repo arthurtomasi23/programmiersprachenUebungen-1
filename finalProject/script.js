@@ -12,7 +12,11 @@ let currentOrder = []; // Array to store the current order of the images
 let gridSizeButton = document.getElementById("gridSize")
 
 const slices = [];
-const uploadedImage = document.getElementById('test');
+
+let uploadedImage = document.getElementById('test');
+//console.log(uploadImage);
+
+
 
 let shuffleButton = document.getElementById("shuffle");
 
@@ -41,6 +45,32 @@ window.onload = function() {
         resetGameBoard();
     });
 }
+//function to upload the picture you choose
+function uploadImage() {
+    var input = document.getElementById("fileInput");
+    var image = document.getElementById("test");
+    var file = input.files[0];
+    var reader = new FileReader();
+    if (file.type == "image/jpeg" || file.type == "image/jpg") {
+        reader.onload = function(e) {
+            var img = new Image;
+            img.src = e.target.result;
+            img.onload = function(){
+                var canvas = document.createElement('canvas');
+                canvas.width = img.width;
+                canvas.height = img.height;
+                var ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, img.width, img.height);
+                // This line is the one that converts the image to JPEG format
+                image.src = canvas.toDataURL('image/jpeg', 0.9); 
+            }
+        }
+        reader.readAsDataURL(file);
+    } else {
+        alert("Please select a JPEG image file");
+    }
+}
+
 
 function saveInitialOrder() {
     let images = document.querySelectorAll("#gameBoard img");
@@ -216,7 +246,7 @@ function stopTimer() {
 function sliceImage(image) {
     // reset values of array
     slices.length = 0;
-
+    //console.log(src.data);
     let count = 1;
     sliceSizeHeight = image.height / rows; //setting the number of slices
     sliceSizeWidth = image.width / columns;
