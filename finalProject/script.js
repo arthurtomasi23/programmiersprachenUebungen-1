@@ -8,15 +8,21 @@ let shuffled = false;
 let initialOrder = []; // Array to store the initial order of the images
 let currentOrder = []; // Array to store the current order of the images
 
-
-let gridSizeButton = document.getElementById("gridSize")
+const gridSizeButton = document.getElementById("gridSize")
+const input = document.getElementById("fileInput");
 
 const slices = [];
 
 let uploadedImage = document.getElementById('test');
-//console.log(uploadImage);
-
-
+input.addEventListener('change', function() {
+    //nachher korrigieren auf HTML
+    uploadedImage.src = 'url(' + URL.createObjectURL(input.files[0]) + ')';
+    console.log(input.files);
+    sliceImage(uploadedImage);
+    deleteGameBoard();
+    drawGameBoard();
+    saveInitialOrder();
+});
 
 let shuffleButton = document.getElementById("shuffle");
 
@@ -47,7 +53,6 @@ window.onload = function() {
 }
 //function to upload the picture you choose
 function uploadImage() {
-    var input = document.getElementById("fileInput");
     var image = document.getElementById("test");
     var file = input.files[0];
     var reader = new FileReader();
@@ -246,6 +251,7 @@ function stopTimer() {
 function sliceImage(image) {
     // reset values of array
     slices.length = 0;
+    console.log("lets slice");
     //console.log(src.data);
     let count = 1;
     sliceSizeHeight = image.height / rows; //setting the number of slices

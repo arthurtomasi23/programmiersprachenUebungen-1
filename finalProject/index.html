@@ -9,18 +9,25 @@
     <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Noto+Sans+JP:wght@300&display=swap" rel="stylesheet">
 </head>
     <body>
-        <img  id ="test" src="assets/picture2.jpg">
+        <img  id="test" src="assets/picture2.jpg">
         <h1>Final Project - Programming Languages Exercices</h1>
-        <select id="gridSize">
-            <option value="3">3x3</option>
-            <option value="4">4x4</option>
-            <option value="5">5x5</option>
-            <option value="6">6x6</option>
-            <option value="7">7x7</option>
-            <option value="8">8x8</option>
-        </select>
-        <input type="file" id="fileInput" onchange="uploadImage()">
-        <button id="shuffle">Shuffle</button>
+        <div id="optionBarTop">
+                <select id="gridSize">
+                    <option value="3">3x3</option>
+                    <option value="4">4x4</option>
+                    <option value="5">5x5</option>
+                    <option value="6">6x6</option>
+                    <option value="7">7x7</option>
+                    <option value="8">8x8</option>
+                </select>
+            <div class="choose-file-container">
+                <input type="file" id="fileInput">
+                <label id="chooseFile" for="fileInput">Choose file</label>
+            </div>
+            <div>
+                <button id="shuffle">Shuffle</button>
+            </div>
+        </div>
         <div id="gameBoard">
         </div>
         <div id="turnsAndTimer">

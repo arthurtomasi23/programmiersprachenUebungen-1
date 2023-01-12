@@ -28,10 +28,39 @@ body {
     border: 2px solid white;
     border-radius: 4px;
     cursor: move;
+}    
+
+#optionBarTop {
+    display: flex;
+    margin: 5px auto;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 600px;
+
+}
+#turnsAndTimer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 600px;
+    height: 50px;
+    margin: 10px auto;
+    border: none;
+    color: #fff;
+    background-image: linear-gradient(40deg, #0400ff, #4ce3f7);
+    border-radius: 35px;
+    font-family: inherit;
+    font-size: 17px;
 }
 
+.choose-file-container {
+margin: 0;
+display: flex;
+justify-content: center;
+}
 
-#gridSize {
+#gridSize, #shuffle, #chooseFile {
+    margin: 20px;
     border: none;
     color: #fff;
     background-image: linear-gradient(40deg, #0400ff, #4ce3f7);
@@ -44,7 +73,7 @@ body {
     margin: 2px;
 }
        
-    #gridSize:hover {
+    #gridSize, #shuffle, #chooseFile:hover {
     background-position: right center;
     background-size: 200% auto;
     -webkit-animation: pulse 2s infinite;
@@ -65,78 +94,8 @@ body {
     }
 }
 
-#shuffle {
-    border: none;
-    color: #fff;
-    background-image: linear-gradient(40deg, #0400ff, #4ce3f7);
-    border-radius: 20px;
-    background-size: 100% auto;
-    font-family: inherit;
-    font-size: 17px;
-    padding: 0.6em 1.5em;
-    margin: 2px;
-}
-   
-   #shuffle:hover {
-    background-position: right center;
-    background-size: 200% auto;
-    -webkit-animation: pulse 2s infinite;
-    animation: pulse512 1.5s infinite;
-}
-   
-   @keyframes pulse512 {
-    0% {
-     box-shadow: 0 0 0 0 #05bada66;
-    }
-   
-    70% {
-     box-shadow: 0 0 0 10px rgb(218 103 68 / 0%);
-    }
-   
-    100% {
-     box-shadow: 0 0 0 0 rgb(218 103 68 / 0%);
-    }
-}
-
 #fileInput {
-    border: none;
-    color: #fff;
-    background-image: linear-gradient(40deg, #0400ff, #4ce3f7);
-    border-radius: 20px;
-    background-size: 100% auto;
-    font-family: inherit;
-    font-size: 17px;
-    padding: 0.6em 1.5em;
-    margin: 2px;
-}
-   
-#fileInput:hover {
-    background-position: right center;
-    background-size: 200% auto;
-    -webkit-animation: pulse 2s infinite;
-    animation: pulse512 1.5s infinite;
-}
-   
-   @keyframes pulse512 {
-    0% {
-     box-shadow: 0 0 0 0 #05bada66;
-    }
-   
-    70% {
-     box-shadow: 0 0 0 10px rgb(218 103 68 / 0%);
-    }
-   
-    100% {
-     box-shadow: 0 0 0 0 rgb(218 103 68 / 0%);
-    }
-}
-
-#turnsAndTimer {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content:center;
-    gap: 40px;
+    display: none;
 }
 
 #test {
@@ -144,7 +103,7 @@ body {
 }
 
 #winningScreen {
-    display: none;
+display: none;
 }
 
 body .winningScreenEnabled {
