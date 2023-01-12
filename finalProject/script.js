@@ -16,12 +16,14 @@ const slices = [];
 let uploadedImage = document.getElementById('test');
 input.addEventListener('change', function() {
     //nachher korrigieren auf HTML
-    uploadedImage.src = 'url(' + URL.createObjectURL(input.files[0]) + ')';
-    console.log(input.files);
-    sliceImage(uploadedImage);
-    deleteGameBoard();
-    drawGameBoard();
-    saveInitialOrder();
+    //nachschauen ob es ein Event gibt von uploadedImage.src = URL.createObjectURL(input.files[0]); das bestätigt das Funktion zu Ende läuft
+    uploadedImage.src = URL.createObjectURL(input.files[0]);
+    setTimeout(() => {
+        sliceImage(uploadedImage);
+        deleteGameBoard();
+        drawGameBoard();
+        saveInitialOrder();
+    }, 50);
 });
 
 let shuffleButton = document.getElementById("shuffle");
@@ -124,6 +126,7 @@ function drawGameBoard() {
             tile.height = (600/columns)-4;
             tile.id = r.toString () +  "-" + c.toString(); //getting the id of the slices (0-0)
             tile.src = slices[index].data; //(could also be index++, then i wouldn't need)
+            console.log(slices[index].data);
             //tile.src = slice.src;
             //finds out where the last puzzle piece is and replaces it with the blank tile
             if(slices[index].name == columns * rows + ".jpg") {
@@ -251,28 +254,34 @@ function stopTimer() {
 function sliceImage(image) {
     // reset values of array
     slices.length = 0;
-    console.log("lets slice");
     //console.log(src.data);
     let count = 1;
     sliceSizeHeight = image.height / rows; //setting the number of slices
     sliceSizeWidth = image.width / columns;
+
+    console.log(sliceSizeHeight);
     //sizing the slices and setting the positions from which the function slicesthe different pieces of the puzzle
     for (let y = 0; y < image.height; y += sliceSizeHeight) {
         for (let x = 0; x < image.width; x += sliceSizeWidth) {
         const canvas = document.createElement('canvas');
         canvas.width = sliceSizeWidth; //setting the height and width of the slizes
         canvas.height = sliceSizeHeight; //setting the height and width of the slizes
+
         const context = canvas.getContext('2d');
 
+        // debugger;
         context.drawImage(image, x, y, sliceSizeWidth, sliceSizeHeight, 0, 0, sliceSizeWidth, sliceSizeHeight);
+
         //naming the slices from 1.jpg to 9.jpg
         //stores the name and data in the object "slice"
         const slice = {
           name: count + '.jpg', //the new images are stored in the variable "name" (e.g. 1.jpg)
           data: canvas.toDataURL(),
         };
+
         slices.push(slice); //pushing the slices in the slice array
         count++;
         }
+        console.log(slices);
     }
 }
