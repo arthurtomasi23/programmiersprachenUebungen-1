@@ -1,17 +1,25 @@
-let rows = 3;
-let columns = 3;
+let rows = 3; //default tile Size 
+let columns = 3; //default tile Size
 let currentTile; //the clicked tile
 let blankTile; //the blank tile
 let turns = 0; //the turns
 let shuffled = false;
+let minutes = 0;
+let seconds = 0;
 
 let initialOrder = []; // Array to store the initial order of the images
 let currentOrder = []; // Array to store the current order of the images
 
-const gridSizeButton = document.getElementById("gridSize")
+const closeButton = document.getElementById("closeWinningScreen");
+const gridSizeButton = document.getElementById("gridSize");
 const input = document.getElementById("fileInput");
 
 const slices = [];
+
+
+closeButton.addEventListener("click", function() {
+    winningScreen.classList.remove("winningScreenEnabled");
+})
 
 let uploadedImage = document.getElementById('test');
 input.addEventListener('change', function() {
@@ -22,8 +30,8 @@ input.addEventListener('change', function() {
         sliceImage(uploadedImage);
         deleteGameBoard();
         drawGameBoard();
-        saveInitialOrder();
     }, 50);
+    saveInitialOrder();
 });
 
 let shuffleButton = document.getElementById("shuffle");
@@ -37,12 +45,14 @@ window.onload = function() {
 
     //grid Size Button
     gridSizeButton.addEventListener('change', function() {
+        shuffled = false;
         let buttonValue = this.value;
         rows = buttonValue;
         columns = buttonValue;
         deleteGameBoard();
         sliceImage(uploadedImage);
         drawGameBoard();
+        saveInitialOrder();
     });
 
     //shuffle Button
@@ -55,47 +65,60 @@ window.onload = function() {
 }
 //function to upload the picture you choose
 function uploadImage() {
-    var image = document.getElementById("test");
-    var file = input.files[0];
-    var reader = new FileReader();
+    let image = document.getElementById("test");
+    let file = input.files[0];
+    let reader = new FileReader();
     if (file.type == "image/jpeg" || file.type == "image/jpg") {
         reader.onload = function(e) {
-            var img = new Image;
+            let img = new Image;
             img.src = e.target.result;
             img.onload = function(){
-                var canvas = document.createElement('canvas');
+                let canvas = document.createElement('canvas');
                 canvas.width = img.width;
                 canvas.height = img.height;
-                var ctx = canvas.getContext('2d');
+                let ctx = canvas.getContext('2d');
                 ctx.drawImage(img, 0, 0, img.width, img.height);
                 // This line is the one that converts the image to JPEG format
                 image.src = canvas.toDataURL('image/jpeg', 0.9); 
             }
         }
         reader.readAsDataURL(file);
-    } else {
-        alert("Please select a JPEG image file");
     }
 }
 
-
+//function that saves the inital order of the slized puzzletiles 
 function saveInitialOrder() {
+    initialOrder.length = 0;
     let images = document.querySelectorAll("#gameBoard img");
     for (let i = 0;i < images.length; i++) {
         initialOrder.push(images[i].src);
     }
 }
+
+
 //compares the order of the pieces before they have been shuffled with the order of the pieces after very move
 function compareToInitialOrder() {
     currentOrder= [];
     let images = document.querySelectorAll("#gameBoard img");
     for (let i = 0;i < images.length; i++) {
         currentOrder.push(images[i].src);
+        if (currentOrder[i] != initialOrder[i]) {
+            images[i].classList.add("wrongPos");
+        }
+        else{
+            images[i].classList.remove("wrongPos");
+        }
     }
-
-    if (initialOrder.join() === currentOrder.join()) {
+    console.log(currentOrder);
+    console.log(initialOrder);
+//checks if the initialOrder is the same as the currentOrder and if the tiles were shuffled
+    if (initialOrder.join() === currentOrder.join() && shuffled) {
+        stopTimer();
         console.log("Everything is in the right place");
         winningScreen.classList.add("winningScreenEnabled");
+
+        document.getElementById('turnsWinning').innerHTML = turns;
+        document.getElementById('timerWinning').innerHTML = minutes + ':' + seconds;
     } else {
         console.log("still not all pieces in the right place")
     }
@@ -126,13 +149,12 @@ function drawGameBoard() {
             tile.height = (600/columns)-4;
             tile.id = r.toString () +  "-" + c.toString(); //getting the id of the slices (0-0)
             tile.src = slices[index].data; //(could also be index++, then i wouldn't need)
-            console.log(slices[index].data);
-            //tile.src = slice.src;
+
             //finds out where the last puzzle piece is and replaces it with the blank tile
             if(slices[index].name == columns * rows + ".jpg") {
-                tile.src = "assets/blankTile.jpg"
+                tile.src = "assets/blankTile.jpg";
+                blankTile = tile;
             }
-            //console.log(slices[index].name);
 
             //all events for the drag and drop action
             tile.addEventListener("dragstart", dragStart); //beginn to drag a tile
@@ -141,15 +163,70 @@ function drawGameBoard() {
             tile.addEventListener("dragleave", dragLeave); //leaving the space of the tile you want to swap with
             tile.addEventListener("drop", dragDrop); //letting go of the mouse while being over the tile you want to swap with
             tile.addEventListener("dragend", dragEnd); //clicked tile swaps with the blank tile
+            //when clicked swap tiles
+            tile.addEventListener("click", clickChange);
 
             document.getElementById("gameBoard").append(tile);
 
             index += 1;
         }
     }
+   compareToInitialOrder();
 }
 
-//all the steps while the dag and drop action 
+function clickChange() {
+    if(!blankTile.src.includes("blankTile.jpg")) {
+        return;
+    }
+
+     //finds the coordinates of the clicked tile
+     let currentCoordinates = this.id.split("-"); //split() seperates the coordinates by the "-" -->now its an array of two 0s 
+     let r = parseInt(currentCoordinates[0]); //parseInt takes the first part of the array and makes it into a integer
+     let c = parseInt(currentCoordinates[1]); //and here the same with the second part of the array
+     
+     //finds the coordinates of the blank tile
+     let blankCoordinates = blankTile.id.split("-");
+     let r2 = parseInt(blankCoordinates[0]);//takes the first number of the array
+     let c2 = parseInt(blankCoordinates[1]);//takes the second number of the array
+ 
+     //setting the positions from witch we can swap with the blank tile
+     //the tiles have to be next to the blank tile(to the right/left/over or under the blank tile)
+     let toTheLeft = r == r2 && c2 == c-1;
+     let toTheRight = r == r2 && c2 == c+1;
+     let over = c == c2 && r2 == r-1;
+     let under = c == c2 && r2 == r+1;
+     
+     //checks if the tile you drag and drop is next to the blank tile
+     let isNextTo = toTheLeft || toTheRight || over || under;
+ 
+     if(isNextTo) {
+        let currentImg = this.src;
+        let blankImg = blankTile.src;
+
+    
+        this.src = blankImg;
+        blankTile.src = currentImg;
+
+        blankTile = this;
+        compareToInitialOrder();
+    
+        
+    
+        //only starts the game when the gameboard was shuffled
+        if (shuffled) {
+            turns +=1;
+        }
+        
+        //starts the timer when the first turn was made
+        if (turns === 1) {
+            startTimer();
+        }
+    
+        document.getElementById("turns").innerText = turns; //counting the turns
+     }
+}
+
+//all the steps during the drag and drop actions
 function dragStart() {
     currentTile = this; //while Tile is being dragged
 }
@@ -169,7 +246,7 @@ function dragLeave() {
 }
 
 function dragDrop() {
-    blankTile = this; //when the dragged image is beeing dopped on the blank Image/blankTile
+    
 }
 
 function dragEnd() {
@@ -192,7 +269,8 @@ function dragEnd() {
     let toTheRight = r == r2 && c2 == c+1;
     let over = c == c2 && r2 == r-1;
     let under = c == c2 && r2 == r+1;
-
+    
+    //checks if the tile you drag and drop is next to the blank tile
     let isNextTo = toTheLeft || toTheRight || over || under;
 
     if(isNextTo) {
@@ -203,6 +281,7 @@ function dragEnd() {
     blankTile.src = currentImg;
     compareToInitialOrder();
 
+    blankTile = currentTile; //when the dragged image is beeing dopped on the blank Image/blankTile
     
 
     //only starts the game when the gameboard was shuffled
@@ -224,7 +303,7 @@ function resetGameBoard () {
     time = 0;
     stopTimer();
     document.getElementById("turns").innerText = turns;
-    document.getElementById("timer").innerText = time;
+    document.getElementById("timer").innerText =time;
 }
 
 //timer function that starts with the first turn
@@ -234,8 +313,8 @@ function startTimer() {
     timerInterval = setInterval(function () {
         time++;
         //making the Timer in seconds and minutes
-        let minutes = Math.floor(time/60); //minutes
-        let seconds = time % 60; //seconds
+        minutes = Math.floor(time/60); //minutes
+        seconds = time % 60; //seconds
         if(minutes < 10) {
             minutes = "0" + minutes; //sets the zero until the minutes are 10
         }
@@ -258,8 +337,7 @@ function sliceImage(image) {
     let count = 1;
     sliceSizeHeight = image.height / rows; //setting the number of slices
     sliceSizeWidth = image.width / columns;
-
-    console.log(sliceSizeHeight);
+    
     //sizing the slices and setting the positions from which the function slicesthe different pieces of the puzzle
     for (let y = 0; y < image.height; y += sliceSizeHeight) {
         for (let x = 0; x < image.width; x += sliceSizeWidth) {
@@ -269,7 +347,6 @@ function sliceImage(image) {
 
         const context = canvas.getContext('2d');
 
-        // debugger;
         context.drawImage(image, x, y, sliceSizeWidth, sliceSizeHeight, 0, 0, sliceSizeWidth, sliceSizeHeight);
 
         //naming the slices from 1.jpg to 9.jpg
@@ -282,6 +359,5 @@ function sliceImage(image) {
         slices.push(slice); //pushing the slices in the slice array
         count++;
         }
-        console.log(slices);
     }
 }

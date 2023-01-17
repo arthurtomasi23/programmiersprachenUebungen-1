@@ -6,10 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arthur Tomasi Slide Puzzle</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Noto+Sans+JP:wght@300&display=swap" rel="stylesheet">
 </head>
     <body>
-        <img  id="test" src="assets/picture2.jpg">
+        <img  id="test" src="assets/default.jpg">
         <h1>Final Project - Programming Languages Exercices</h1>
         <div id="optionBarTop">
                 <select id="gridSize">
@@ -41,9 +40,10 @@
         <div id="winningScreen">
             <div id="winningScreenItem">
                 <h3>You Won!</h3>
+                <button id="closeWinningScreen">&#x2717;</button>
                 <span>Congratulations! You solved the puzzle correctly.</span>
-                <h4>Turns: <span id ="turns">0</span>x</h4>
-                <h4>Time: <span id ="timer">0</span> min</h4>
+                <h4>It only took you <span id ="turnsWinning">0</span> Turns to solve the puzzle</h4>
+                <h4>You solved the Puzzle in <span id ="timerWinning">0</span> min</h4>
             </div>
         </div>  
     </body>

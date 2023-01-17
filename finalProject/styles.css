@@ -1,14 +1,26 @@
-h4 {
+@font-face {
+    font-family: 'blomberg';
+    src: url('assets/blomberg-font/Blomberg-8MKKZ.otf');
+}
+
+h3 {
 color: black;
 font-size: 20px;
 font-weight: bold;
 }
 
+#closeWinningScreen {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+
+}
+
 body {
-    background-image: url("assets/milad-fakurian-HE1_K4_-QT8-unsplash.jpg");
+    background-image: url("assets/background.jpg");
     background-size: cover;
     text-align: center;
-    font-family: 'Noto Sans JP', sans-serif;
+    font-family: 'blomberg';
     color: black;
 }
 /*styling the game-Board*/
@@ -25,10 +37,17 @@ body {
 
 /*styling the tiles inside the game-board*/
 #gameBoard img {
+    opacity: 1;
     border: 2px solid white;
     border-radius: 4px;
-    cursor: move;
-}    
+    cursor: grab;
+}
+
+.wrongPos {
+    opacity: 0.5 !important;
+}
+
+
 
 #optionBarTop {
     display: flex;
@@ -47,7 +66,7 @@ body {
     margin: 10px auto;
     border: none;
     color: #fff;
-    background-image: linear-gradient(40deg, #0400ff, #4ce3f7);
+    background-image: linear-gradient(40deg, #0062ff, #4ce3f7);
     border-radius: 35px;
     font-family: inherit;
     font-size: 17px;
@@ -110,7 +129,7 @@ body .winningScreenEnabled {
     position: absolute;
     top: 0;
     left: 0;
-    display:flex !important;
+    display: flex !important;
     flex-wrap: wrap;
     width: 100vw;
     height: 100vh;
@@ -121,6 +140,7 @@ body .winningScreenEnabled {
 }
 
 #winningScreenItem {
+position: relative;
 width: auto;
 height: auto;
 background-color: white;
