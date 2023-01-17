@@ -23,8 +23,7 @@ closeButton.addEventListener("click", function() {
 
 let uploadedImage = document.getElementById('test');
 input.addEventListener('change', function() {
-    //nachher korrigieren auf HTML
-    //nachschauen ob es ein Event gibt von uploadedImage.src = URL.createObjectURL(input.files[0]); das bestätigt das Funktion zu Ende läuft
+    //nachschauen ob es einen Eventlistener gibt von uploadedImage.src = URL.createObjectURL(input.files[0]); das bestätigt das Funktion zu Ende läuft
     uploadedImage.src = URL.createObjectURL(input.files[0]);
     setTimeout(() => {
         sliceImage(uploadedImage);
@@ -49,6 +48,7 @@ window.onload = function() {
         let buttonValue = this.value;
         rows = buttonValue;
         columns = buttonValue;
+        resetGameBoard();
         deleteGameBoard();
         sliceImage(uploadedImage);
         drawGameBoard();
