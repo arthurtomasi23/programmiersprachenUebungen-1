@@ -6,25 +6,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arthur Tomasi Slide Puzzle</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 </head>
     <body>
         <img  id="test" src="assets/default.jpg">
         <h1>Final Project - Programming Languages Exercices</h1>
         <div id="optionBarTop">
-                <select id="gridSize">
-                    <option value="3">3x3</option>
-                    <option value="4">4x4</option>
-                    <option value="5">5x5</option>
-                    <option value="6">6x6</option>
-                    <option value="7">7x7</option>
-                    <option value="8">8x8</option>
-                </select>
+            <div class="shuffle-container">
+                <button id="shuffle">shuffle</button>
+                <label id="startGame" for="shuffle">START GAME!</label>
+            </div>   
             <div class="choose-file-container">
                 <input type="file" id="fileInput">
                 <label id="chooseFile" for="fileInput">Choose file</label>
             </div>
-            <div>
-                <button id="shuffle">Shuffle</button>
+            <select id="gridSize">
+                <option value="3">3x3</option>
+                <option value="4">4x4</option>
+                <option value="5">5x5</option>
+                <option value="6">6x6</option>
+                <option value="7">7x7</option>
+                <option value="8">8x8</option>
+            </select>
+            <div class="button-container">
+                <button id="soundButton">Sound</button>
+                <label id="sound"for="soundButton"><i id="soundIcon" class="fa-solid fa-volume-high"></i></label>
             </div>
         </div>
         <div id="gameBoard">
@@ -46,6 +52,7 @@
                 <h4>You solved the Puzzle in <span id ="timerWinning">0</span> min</h4>
             </div>
         </div>  
+        
     </body>
     <script src="script.js"></script>
 </html>

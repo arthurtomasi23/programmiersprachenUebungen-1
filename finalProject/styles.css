@@ -1,12 +1,14 @@
 @font-face {
-    font-family: 'blomberg';
-    src: url('assets/blomberg-font/Blomberg-8MKKZ.otf');
+    font-family: 'qaz';
+    src: url('assets/qaz-font/Qaz-ZV74m.ttf');
 }
 
-h3 {
-color: black;
-font-size: 20px;
+h1 {
+color: rgb(0, 0, 0);
+font-size: 40px;
 font-weight: bold;
+margin: 0;
+padding:5px;
 }
 
 #closeWinningScreen {
@@ -20,7 +22,7 @@ body {
     background-image: url("assets/background.jpg");
     background-size: cover;
     text-align: center;
-    font-family: 'blomberg';
+    font-family: 'qaz';
     color: black;
 }
 /*styling the game-Board*/
@@ -47,13 +49,12 @@ body {
     opacity: 0.5 !important;
 }
 
-
-
 #optionBarTop {
     display: flex;
     margin: 5px auto;
     justify-content: space-between;
     flex-direction: row;
+    padding: 0;
     width: 600px;
 
 }
@@ -69,16 +70,21 @@ body {
     background-image: linear-gradient(40deg, #0062ff, #4ce3f7);
     border-radius: 35px;
     font-family: inherit;
-    font-size: 17px;
+    font-size: 25px;
 }
 
-.choose-file-container {
+#sound {
+    background-image: url("assets/muteWhite.svg");
+}
+
+.choose-file-container, .button-container, .shuffle-container{
 margin: 0;
 display: flex;
 justify-content: center;
 }
 
-#gridSize, #shuffle, #chooseFile {
+
+#gridSize, #startGame, #chooseFile, #sound {
     margin: 20px;
     border: none;
     color: #fff;
@@ -86,19 +92,18 @@ justify-content: center;
     border-radius: 20px;
     background-size: 100% auto;
     font-family: inherit;
-    font-size: 17px;
-    padding: 0.6em 1.5em;
+    font-size: 20px;
+    padding: 0.6em 1em;
     margin: 10px 10px;
     margin: 2px;
 }
-       
-    #gridSize, #shuffle, #chooseFile:hover {
+  
+#sound:hover {
     background-position: right center;
     background-size: 200% auto;
     -webkit-animation: pulse 2s infinite;
     animation: pulse512 1.5s infinite;
-}
-       
+    }      
     @keyframes pulse512 {
     0% {
      box-shadow: 0 0 0 0 #05bada66;
@@ -113,7 +118,67 @@ justify-content: center;
     }
 }
 
-#fileInput {
+#chooseFile:hover {
+    background-position: right center;
+    background-size: 200% auto;
+    -webkit-animation: pulse 2s infinite;
+    animation: pulse512 1.5s infinite;
+    }      
+    @keyframes pulse512 {
+    0% {
+     box-shadow: 0 0 0 0 #05bada66;
+    }
+       
+    70% {
+     box-shadow: 0 0 0 10px rgb(218 103 68 / 0%);
+    }
+       
+    100% {
+     box-shadow: 0 0 0 0 rgb(218 103 68 / 0%);
+    }
+}
+
+#gridSize:hover {
+    background-position: right center;
+    background-size: 200% auto;
+    -webkit-animation: pulse 2s infinite;
+    animation: pulse512 1.5s infinite;
+    }      
+    @keyframes pulse512 {
+    0% {
+     box-shadow: 0 0 0 0 #05bada66;
+    }
+       
+    70% {
+     box-shadow: 0 0 0 10px rgb(218 103 68 / 0%);
+    }
+       
+    100% {
+     box-shadow: 0 0 0 0 rgb(218 103 68 / 0%);
+    }
+}
+
+#startGame:hover {
+    background-position: right center;
+    background-size: 200% auto;
+    -webkit-animation: pulse 2s infinite;
+    animation: pulse512 1.5s infinite;
+    }      
+    @keyframes pulse512 {
+    0% {
+     box-shadow: 0 0 0 0 #05bada66;
+    }
+       
+    70% {
+     box-shadow: 0 0 0 10px rgb(218 103 68 / 0%);
+    }
+       
+    100% {
+     box-shadow: 0 0 0 0 rgb(218 103 68 / 0%);
+    }
+}
+
+#fileInput, #soundButton, #shuffle {
     display: none;
 }
 

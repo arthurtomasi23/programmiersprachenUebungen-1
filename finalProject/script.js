@@ -13,8 +13,18 @@ let currentOrder = []; // Array to store the current order of the images
 const closeButton = document.getElementById("closeWinningScreen");
 const gridSizeButton = document.getElementById("gridSize");
 const input = document.getElementById("fileInput");
+const soundButton = document.getElementById("soundButton");
+const clickSound = new Audio("assets/clickSound.wav");
 
 const slices = [];
+
+
+
+soundButton.addEventListener("click", function() {
+    document.getElementById("soundIcon").classList.toggle("fa-volume-high");
+    document.getElementById("soundIcon").classList.toggle("fa-volume-xmark");
+    clickSound.muted = !clickSound.muted;
+})
 
 
 closeButton.addEventListener("click", function() {
@@ -182,7 +192,7 @@ function clickChange() {
     if(!blankTile.src.includes("blankTile.jpg")) {
         return;
     }
-
+    clickSound.play();
      //finds the coordinates of the clicked tile
      let currentCoordinates = this.id.split("-"); //split() seperates the coordinates by the "-" -->now its an array of two 0s 
      let r = parseInt(currentCoordinates[0]); //parseInt takes the first part of the array and makes it into a integer
