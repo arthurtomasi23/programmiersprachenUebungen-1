@@ -38,9 +38,11 @@ let shuffleButton = document.getElementById("shuffle");
 let winningScreen = document.getElementById("winningScreen");
 
 window.onload = function() {
+    const isFirstLoad = true;
     sliceImage(uploadedImage);
-    drawGameBoard();
+    drawGameBoard(isFirstLoad);
     saveInitialOrder();
+    
 
     //grid Size Button
     gridSizeButton.addEventListener('change', function() {
@@ -138,7 +140,7 @@ function deleteGameBoard() {
 }
 
 //drawing the gameboard an setting the heights and widths for the tiles
-function drawGameBoard() {
+function drawGameBoard(isFirstLoad) {
     let index = 0;
     
     for (let r=0; r < rows; r++) {
@@ -171,7 +173,9 @@ function drawGameBoard() {
             index += 1;
         }
     }
-   compareToInitialOrder();
+    if(!isFirstLoad) {
+        compareToInitialOrder();
+    }
 }
 
 function clickChange() {
