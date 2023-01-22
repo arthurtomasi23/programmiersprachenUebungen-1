@@ -19,7 +19,6 @@ const clickSound = new Audio("assets/clickSound.wav");
 const slices = [];
 
 
-
 soundButton.addEventListener("click", function() {
     document.getElementById("soundIcon").classList.toggle("fa-volume-high");
     document.getElementById("soundIcon").classList.toggle("fa-volume-xmark");
@@ -39,8 +38,8 @@ input.addEventListener('change', function() {
         sliceImage(uploadedImage);
         deleteGameBoard();
         drawGameBoard();
-    }, 50);
-    saveInitialOrder();
+        saveInitialOrder();
+    }, 100);
 });
 
 let shuffleButton = document.getElementById("shuffle");
@@ -60,11 +59,17 @@ window.onload = function() {
         let buttonValue = this.value;
         rows = buttonValue;
         columns = buttonValue;
+
+        uploadedImage.src = "assets/" + rows + "x" + columns + ".jpg";
+
         resetGameBoard();
-        deleteGameBoard();
-        sliceImage(uploadedImage);
-        drawGameBoard();
-        saveInitialOrder();
+
+        setTimeout(() => {
+            sliceImage(uploadedImage);
+            deleteGameBoard();
+            drawGameBoard();
+            saveInitialOrder();
+        }, 100);
     });
 
     //shuffle Button
@@ -127,10 +132,9 @@ function compareToInitialOrder() {
     if (initialOrder.join() === currentOrder.join() && shuffled) {
         stopTimer();
         console.log("Everything is in the right place");
-        winningScreen.classList.add("winningScreenEnabled");
-
         document.getElementById('turnsWinning').innerHTML = turns;
         document.getElementById('timerWinning').innerHTML = minutes + ':' + seconds;
+        winningScreen.classList.add("winningScreenEnabled");
     } else {
         console.log("still not all pieces in the right place")
     }
@@ -349,6 +353,7 @@ function sliceImage(image) {
     slices.length = 0;
     //console.log(src.data);
     let count = 1;
+
     sliceSizeHeight = image.height / rows; //setting the number of slices
     sliceSizeWidth = image.width / columns;
     
@@ -362,7 +367,7 @@ function sliceImage(image) {
         const context = canvas.getContext('2d');
 
         context.drawImage(image, x, y, sliceSizeWidth, sliceSizeHeight, 0, 0, sliceSizeWidth, sliceSizeHeight);
-
+        console.log(context);
         //naming the slices from 1.jpg to 9.jpg
         //stores the name and data in the object "slice"
         const slice = {
